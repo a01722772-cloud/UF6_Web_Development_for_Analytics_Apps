@@ -1,0 +1,37 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+st.title("Simple Data Dashboard")
+
+st.write('Grafica en Contenedor')
+
+with st.container():
+    st.write("This is inside the container")
+    df=pd.DataFrame({'A':[1,2,3,4], 'B':[5,6,7,8], 'C':[9,10,11,12]})
+
+    st.write(df)
+
+    st.bar_chart(df)
+
+    x=10
+    y=np.random.normal(0,1,size=1000)
+    fig, ax =plt.subplots()
+    ax.hist(y, bins=20)
+
+    st.write(fig)
+
+
+    df=pd.DataFrame(
+    [
+        {"postre": "pastel", "rating": 4, "is_widget": True},
+        {"postre": "helado", "rating": 5, "is_widget": False},
+        {"postre": "galleta", "rating": 3, "is_widget": True},
+    ]    
+)
+edited_df=st.data_editor(df)
+
+favorite_dessert = edited_df.loc[edited_df["rating"].idmax()]["postre"]
+st.markdown(f"Tu postre favorito es: **{favorite_dessert}**")
+
